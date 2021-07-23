@@ -1,12 +1,12 @@
 My Personal Project
 -------------------
 
-Football Quiz
-=============
+Course Planning
+===============
 
-I came up with an idea to make a **football quiz** application. This application is basically a quiz platform with questions about football around the world. Some potential quiz questions can be like try to *guess the football player in the picture given*. I think mostly the people that use my application will be football fans that are trying to test their football knowledge. I personally like to play games that test my knowledge (i.e., *quiz*). Moreover, I am also a football fan. The reason I want to make this application is that  I want to test myself how much I know about football.
-
-Some possible features in **Football Quiz**:
-- There will be levels (1, 2, 3, ...)
-- There will be different categories (e.g., football club, football players, etc.)
-- There will hint available
+I came up with an idea about course planning. This application will mainly help users to plan the courses they
+should take to fulfil their requirements to graduate from university (for now only works for UBC). For now, people
+that will use my application will be *UBC Computer Science Students*. Hopefully in the future, all students in UBC 
+or even students from any universities can use my application. The reason I want to make **Course Planning** 
+application for my project is because I want to use this application to help me plan what courses to take, so
+I can fulfil the requirements to graduate.
