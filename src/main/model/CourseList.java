@@ -47,4 +47,19 @@ public class CourseList {
     public Course getCourse(String name) {
         return new Course("ABCD 012", 1); //stub
     }
+
+    // EFFECTS: return true if given course's name is in the list; otherwise false
+    public boolean isCourseInList(String name) {
+        return false; //stub
+    }
+
+    // EFFECTS: return CourseList's name
+    public String getName() {
+        return ""; //stub
+    }
+
+    // EFFECTS: return true if the list is empty; otherwise false
+    public boolean isEmpty() {
+        return false; //stub
+    }
 }
