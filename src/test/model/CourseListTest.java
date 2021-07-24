@@ -106,7 +106,7 @@ public class CourseListTest {
 
         assertTrue(isSuccessful);
         assertTrue(courseList.isEmpty());
-        assertTrue(courseList.isCourseInList("MATH 221"));
+        assertFalse(courseList.isCourseInList("CPSC 210"));
     }
 
     // Test removeCourse method
@@ -158,11 +158,12 @@ public class CourseListTest {
         assertEquals("Backup Worklist", courseList.getName());
     }
 
-    @Test
     // Test getCourse method
-    public void testGetCourse() {
+    @Test
+    // when course is in the list
+    public void testGetCourseInList() {
         assertTrue(courseList.addCourse(course));
-        assertTrue(courseList.addCourse(course));
+        assertTrue(courseList.addCourse(course2));
 
         Course course101 = courseList.getCourse("CPSC 210");
         Course course102 = courseList.getCourse("MATH 221");
@@ -172,6 +173,21 @@ public class CourseListTest {
         assertEquals("CPSC 210", course101.getCourseName());
         assertEquals("MATH 221", course102.getCourseName());
     }
+
+    @Test
+    // When course is not in the list
+    public void testGetCourseNotInList() {
+        assertTrue(courseList.isEmpty());
+        Course course103 = courseList.getCourse("CPSC 210");
+
+        assertEquals(null, course103);
+
+        assertTrue(courseList.addCourse(course));
+        Course course104 = courseList.getCourse("MATH 221");
+
+        assertEquals(null, course104);
+    }
+
 }
 
 
