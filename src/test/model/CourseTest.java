@@ -1,5 +1,7 @@
 package model;
 
+import exceptions.InvalidCredit;
+import exceptions.InvalidName;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -11,12 +13,44 @@ class CourseTest {
 
     @BeforeEach
     public void setUp() {
-        course = new Course("CPSC 210", 4);
+        try {
+            course = new Course("CPSC 210", 4);
+        }
+        catch (InvalidName invalidName) {}
+        catch (InvalidCredit invalidCredit) {}
     }
 
     // Test the Course Constructor
     @Test
-    public void testCourseConstructor() {
+    // No exception is thrown
+    public void testCourseConstructorNoException() {
+        try {
+            course = new Course("MATH 221", 3);
+            // do nothing
+        } catch (InvalidName invalidName) {
+            fail("Unexpected InvalidName is thrown");
+        } catch (InvalidCredit invalidCredit) {
+            fail("Unexpected InvalidCredit is thrown");
+        }
+
+        assertEquals("MATH 221", course.getCourseName());
+        assertEquals(3, course.getCourseCredit());
+        assertEquals("planning", course.getCourseStatus());
+        assertEquals(0, course.getCourseGrade());
+    }
+
+    @Test
+    // InvalidName exception is thrown
+    public void testCourseConstructorInvalidNameException() {
+        try {
+            course = new Course("", 3);
+            fail("InvalidName not thrown");
+        } catch (InvalidName invalidName) {
+            // do nothing
+        } catch (InvalidCredit invalidCredit) {
+            fail("Unexpected InvalidCredit is thrown");
+        }
+
         assertEquals("CPSC 210", course.getCourseName());
         assertEquals(4, course.getCourseCredit());
         assertEquals("planning", course.getCourseStatus());
@@ -24,9 +58,33 @@ class CourseTest {
     }
 
     @Test
+    // InvalidCredit exception is thrown
+    public void testCourseConstructorInvalidCreditException() {
+        try {
+            course = new Course("CPSC 210", 0);
+            fail("InvalidCredit not thrown");
+        } catch (InvalidName invalidName) {
+            fail("Unexpected InvalidName is thrown");
+        } catch (InvalidCredit invalidCredit) {
+            // do nothing
+        }
+
+        assertEquals("CPSC 210", course.getCourseName());
+        assertEquals(4, course.getCourseCredit());
+        assertEquals("planning", course.getCourseStatus());
+        assertEquals(0, course.getCourseGrade());
+    }
+
     // Test the changeCourseName method
-    public void testChangeCourseName() {
-        course.changeCourseName("CPSC 213");
+    @Test
+    // No exception thrown
+    public void testChangeCourseNameNoException() {
+        try {
+            course.changeCourseName("CPSC 213");
+            // do nothing
+        } catch (InvalidName invalidName) {
+            fail("Unexpected InvalidName is thrown");
+        }
 
         assertEquals("CPSC 213", course.getCourseName());
         assertEquals(4, course.getCourseCredit());
@@ -35,12 +93,49 @@ class CourseTest {
     }
 
     @Test
+    // InvalidName thrown
+    public void testChangeCourseNameInvalidNameException() {
+        try {
+            course.changeCourseName("");
+            fail("InvalidName not thrown");
+        } catch (InvalidName invalidName) {
+            // do nothing
+        }
+
+        assertEquals("CPSC 210", course.getCourseName());
+        assertEquals(4, course.getCourseCredit());
+        assertEquals("planning", course.getCourseStatus());
+        assertEquals(0, course.getCourseGrade());
+    }
+
     // Test the changeCourseCredit method
-    public void testChangeCourseCredit() {
-        course.changeCourseCredit(3);
+    @Test
+    // No exception thrown
+    public void testChangeCourseCreditNoException() {
+        try {
+            course.changeCourseCredit(3);
+        } catch (InvalidCredit invalidCredit) {
+            fail("Unexpected InvalidCredit is thrown");
+        }
 
         assertEquals("CPSC 210", course.getCourseName());
         assertEquals(3, course.getCourseCredit());
+        assertEquals("planning", course.getCourseStatus());
+        assertEquals(0, course.getCourseGrade());
+    }
+
+    @Test
+    // InvalidCredit thrown
+    public void testChangeCourseCreditInvalidCreditException() {
+        try {
+            course.changeCourseCredit(0);
+            fail("InvalidCredit not thrown");
+        } catch (InvalidCredit invalidCredit) {
+            // do nothing
+        }
+
+        assertEquals("CPSC 210", course.getCourseName());
+        assertEquals(4, course.getCourseCredit());
         assertEquals("planning", course.getCourseStatus());
         assertEquals(0, course.getCourseGrade());
     }

@@ -1,5 +1,8 @@
 package model;
 
+import exceptions.InvalidCredit;
+import exceptions.InvalidName;
+
 public class Course {
 
     private String courseName;
@@ -15,7 +18,13 @@ public class Course {
 
     // REQUIRES: name not an empty string, credit > 0
     // EFFECTS: initializes a course with given name and credit, planning as status, and grade = 0
-    public Course(String name, int credit) {
+    public Course(String name, int credit) throws InvalidName, InvalidCredit {
+        if (name.length() == 0) {
+            throw new InvalidName();
+        } else if (credit <= 0) {
+            throw new InvalidCredit();
+        }
+
         courseName = name;
         courseCredit = credit;
         status = PLANNING;
@@ -25,14 +34,20 @@ public class Course {
     // REQUIRES: name not an empty string
     // MODIFIES: this
     // EFFECTS: change the course's name to the given name
-    public void changeCourseName(String name) {
+    public void changeCourseName(String name) throws InvalidName {
+        if (name.length() == 0) {
+            throw new InvalidName();
+        }
         courseName = name;
     }
 
     // REQUIRES: credit > 0
     // MODIFIES: this
     // EFFECTS: change the course's credit to the given credit
-    public void changeCourseCredit(int credit) {
+    public void changeCourseCredit(int credit) throws InvalidCredit {
+        if (credit <= 0) {
+            throw new InvalidCredit();
+        }
         courseCredit = credit;
     }
 
