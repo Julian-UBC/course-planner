@@ -1,5 +1,7 @@
 package model;
 
+import exceptions.InvalidName;
+
 import java.util.ArrayList;
 
 public class CourseList {
@@ -9,7 +11,11 @@ public class CourseList {
 
     // REQUIRES: name to be a non-empty string
     // EFFECTS: initializes a CourseList with given name & empty course in the list
-    public CourseList(String name) {
+    public CourseList(String name) throws InvalidName {
+        if (name.length() == 0) {
+            throw new InvalidName();
+        }
+
         courseListName = name;
         listOfCourse = new ArrayList<>();
     }
@@ -54,10 +60,15 @@ public class CourseList {
         return false;
     }
 
+    // REQUIRES: name not an empty string
     // MODIFIES: this
     // EFFECTS: change the CourseList name to the given name
-    public void setCourseListName(String name) {
-        courseListName = name;
+    public void setCourseListName(String name) throws InvalidName {
+        if (name.length() == 0) {
+            throw new InvalidName();
+        } else {
+            courseListName = name;
+        }
     }
 
     // EFFECTS: return the length of the list

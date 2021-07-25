@@ -1,5 +1,7 @@
 package model;
 
+import exceptions.InvalidCredit;
+import exceptions.InvalidName;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -15,14 +17,54 @@ public class CourseListTest {
 
     @BeforeEach
     public void setUp() {
-        courseList = new CourseList("Dream Worklist");
-        course = new Course("CPSC 210", 4);
-        course2 = new Course("MATH 221", 3);
+        try {
+            courseList = new CourseList("Dream Worklist");
+        } catch (InvalidName invalidName) {
+            fail("Unexpected InvalidName is thrown");
+        }
+
+        try {
+            course = new Course("CPSC 210", 4);
+        } catch (InvalidName invalidName) {
+            fail("Unexpected InvalidName is thrown");
+        } catch (InvalidCredit invalidCredit) {
+            fail("Unexpected InvalidCredit is thrown");
+        }
+
+        try {
+            course2 = new Course("MATH 221", 3);
+        } catch (InvalidName invalidName) {
+            fail("Unexpected InvalidName is thrown");
+        } catch (InvalidCredit invalidCredit) {
+            fail("Unexpected InvalidCredit is thrown");
+        }
+    }
+
+    // Test the constructor
+    @Test
+    // No exception thrown
+    public void testCourseListConstructorNoException() {
+        try {
+            courseList = new CourseList("Backup Worklist");
+            // do nothing
+        } catch (InvalidName invalidName) {
+            fail("Unexpected InvalidName is thrown");
+        }
+
+        assertEquals("Backup Worklist", courseList.getName());
+        assertTrue(courseList.isEmpty());
     }
 
     @Test
-    // Test the constructor
-    public void testCourseListConstructor() {
+    // InvalidName thrown
+    public void testCourseListConstructorInvalidNameException() {
+        try {
+            courseList = new CourseList("");
+            fail("InvalidName not thrown");
+        } catch (InvalidName invalidName) {
+            // do nothing
+        }
+
         assertEquals("Dream Worklist", courseList.getName());
         assertTrue(courseList.isEmpty());
     }
@@ -148,14 +190,34 @@ public class CourseListTest {
         assertTrue(courseList.isEmpty());
     }
 
-    @Test
     // Test setCourseListName method
-    public void testSetCourseListName() {
+    @Test
+    // No exception thrown
+    public void testSetCourseListNameNoException() {
         assertEquals("Dream Worklist", courseList.getName());
 
-        courseList.setCourseListName("Backup Worklist");
+        try {
+            courseList.setCourseListName("Backup Worklist");
+        } catch (InvalidName invalidName) {
+            fail("Unexpected InvalidName is thrown");
+        }
 
         assertEquals("Backup Worklist", courseList.getName());
+    }
+
+    @Test
+    // InvalidName thrown
+    public void testSetCourseListNameInvalidNameException() {
+        assertEquals("Dream Worklist", courseList.getName());
+
+        try {
+            courseList.setCourseListName("");
+            fail("InvalidName not thrown");
+        } catch (InvalidName invalidName) {
+            //do nothing
+        }
+
+        assertEquals("Dream Worklist", courseList.getName());
     }
 
     // Test getCourse method

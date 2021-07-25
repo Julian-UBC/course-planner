@@ -16,8 +16,12 @@ class CourseTest {
         try {
             course = new Course("CPSC 210", 4);
         }
-        catch (InvalidName invalidName) {}
-        catch (InvalidCredit invalidCredit) {}
+        catch (InvalidName invalidName) {
+            fail("Unexpected InvalidName is thrown");
+        }
+        catch (InvalidCredit invalidCredit) {
+            fail("Unexpected InvalidCredit is thrown");
+        }
     }
 
     // Test the Course Constructor
