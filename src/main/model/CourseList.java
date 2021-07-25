@@ -1,5 +1,6 @@
 package model;
 
+import exceptions.EmptyList;
 import exceptions.InvalidName;
 
 import java.util.ArrayList;
@@ -74,6 +75,16 @@ public class CourseList {
     // EFFECTS: return the length of the list
     public int length() {
         return listOfCourse.size();
+    }
+
+    // REQUIRES: listOfCourse is not empty
+    // EFFECTS: return list of courses
+    public ArrayList<Course> getListOfCourses() throws EmptyList {
+        if (isEmpty()) {
+            throw new EmptyList();
+        } else {
+            return listOfCourse;
+        }
     }
 
     // EFFECTS: if course is in the list, return the requested course

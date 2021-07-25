@@ -1,9 +1,12 @@
 package model;
 
+import exceptions.EmptyList;
 import exceptions.InvalidCredit;
 import exceptions.InvalidName;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -218,6 +221,42 @@ public class CourseListTest {
         }
 
         assertEquals("Dream Worklist", courseList.getName());
+    }
+
+    // Test getListOfCourse method
+    @Test
+    // Empty list -> EmptyList exception thrown
+    public void testGetListOfCourseEmptyList() {
+        ArrayList<Course> courses;
+
+        try {
+            courses = courseList.getListOfCourses();
+            fail("EmptyList not thrown");
+        } catch (EmptyList emptyList) {
+            // do nothing
+        }
+
+        assertTrue(courseList.isEmpty());
+    }
+
+    @Test
+    // Non-empty list -> no exception thrown
+    public void testGetListOfCourseNonEmptyList() {
+        ArrayList<Course> courses = null;
+
+        assertTrue(courseList.addCourse(course));
+        assertTrue(courseList.addCourse(course2));
+
+        try {
+            courses = courseList.getListOfCourses();
+            // do nothing
+        } catch (EmptyList emptyList) {
+            fail("Unexpected EmptyList thrown");
+        }
+
+        assertEquals(2, courses.size());
+        assertEquals("CPSC 210", courses.get(0).getCourseName());
+        assertEquals("MATH 221", courses.get(1).getCourseName());
     }
 
     // Test getCourse method
