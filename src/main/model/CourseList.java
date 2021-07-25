@@ -91,7 +91,7 @@ public class CourseList {
     //          if course is not in the list, return null
     public Course getCourse(String name) {
         for (Course course: listOfCourse) {
-            if (course.getCourseName() == name) {
+            if (course.getCourseName().equals(name)) {
                 return course;
             }
         }

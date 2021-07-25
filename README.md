@@ -18,5 +18,4 @@ User Stories
 - As a user, I want to be able to add a course to my course list 
 - As a user, I want to be able to view the list of courses on my course list
 - As a user, I want to be able to remove a course from my course list
-- As a user, I want to be able to see the requirements that I have fulfilled, and the requirements that I haven't 
-  fulfilled
+- As a user, I want to be able to view the details of a specific course on my course list
