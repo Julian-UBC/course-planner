@@ -112,9 +112,9 @@ public class CoursePlanningApp {
         name = input.nextLine().toUpperCase();
 
         System.out.println("Course credit:");
-        credit = Integer.parseInt(input.nextLine());
-
         try {
+            credit = Integer.parseInt(input.nextLine());
+
             course = new Course(name, credit);
             isSuccessful = worklist.addCourse(course);
 
@@ -123,6 +123,9 @@ public class CoursePlanningApp {
             } else {
                 System.out.println(name + " is already in " + worklist.getName());
             }
+        } catch (NumberFormatException numberFormatException) {
+            System.out.println("That is not a number \n Please try again");
+            addingCourse();
         } catch (InvalidName invalidName) {
             System.out.println("\nInvalid name \nPlease try again");
             addingCourse();
@@ -150,30 +153,38 @@ public class CoursePlanningApp {
     }
 
     private void processRemoveCommand(String command) {
-        commandNum = Integer.parseInt(command);
+        try {
+            commandNum = Integer.parseInt(command);
 
-        if (commandNum == 1) {
-            worklist.removeRecentCourse();
-            // print out what course is removed
-        } else if (commandNum == 2) {
-            System.out.println("Remove course:");
-            command = input.nextLine().toUpperCase();
-
-            if (command.length() == 0) {
-                System.out.println("Invalid input...");
+            if (commandNum == 1) {
+                worklist.removeRecentCourse();
+                // print out what course is removed
+            } else if (commandNum == 2) {
+                removeCourse(command);
+            } else if (commandNum == 9) {
+                seeMyWorklist();
             } else {
-                isSuccessful = worklist.removeCourse(command);
-
-                if (isSuccessful) {
-                    System.out.println(command + " successfully removed");
-                } else {
-                    System.out.println(command + " not found in " + worklist.getName());
-                }
+                System.out.println("Invalid input...");
             }
-        } else if (commandNum == 9) {
-            seeMyWorklist();
-        } else {
+        } catch (NumberFormatException numberFormatException) {
             System.out.println("Invalid input...");
+        }
+    }
+
+    private void removeCourse(String command) {
+        System.out.println("Remove course:");
+        command = input.nextLine().toUpperCase();
+
+        if (command.length() == 0) {
+            System.out.println("Invalid input...");
+        } else {
+            isSuccessful = worklist.removeCourse(command);
+
+            if (isSuccessful) {
+                System.out.println(command + " successfully removed");
+            } else {
+                System.out.println(command + " not found in " + worklist.getName());
+            }
         }
     }
 
@@ -261,12 +272,16 @@ public class CoursePlanningApp {
     // MODIFIES: this
     // EFFECTS: processes user command
     private void processCourseCommand(String command) {
-        commandNum = Integer.parseInt(command);
-        if (commandNum == 1) {
-            getSpecificCourse();
-        } else if (commandNum == 2) {
-            removingCourse();
-        } else {
+        try {
+            commandNum = Integer.parseInt(command);
+            if (commandNum == 1) {
+                getSpecificCourse();
+            } else if (commandNum == 2) {
+                removingCourse();
+            } else {
+                System.out.println("Input invalid...");
+            }
+        } catch (NumberFormatException numberFormatException) {
             System.out.println("Input invalid...");
         }
     }
@@ -307,18 +322,22 @@ public class CoursePlanningApp {
     }
 
     private void processChangeCourseDetailCommand(String command, Course course) {
-        commandNum = Integer.parseInt(command);
+        try {
+            commandNum = Integer.parseInt(command);
 
-        if (commandNum == 1) {
-            changeCourseName(course);
-        } else if (commandNum == 2) {
-            changeCourseCredit(course);
-        } else if (commandNum == 3) {
-            changeCourseStatus(course);
-        } else if (commandNum == 4) {
-            changeCourseGrade(course);
-        } else {
-            System.out.println("Invalid input");
+            if (commandNum == 1) {
+                changeCourseName(course);
+            } else if (commandNum == 2) {
+                changeCourseCredit(course);
+            } else if (commandNum == 3) {
+                changeCourseStatus(course);
+            } else if (commandNum == 4) {
+                changeCourseGrade(course);
+            } else {
+                System.out.println("Invalid input...");
+            }
+        } catch (NumberFormatException numberFormatException) {
+            System.out.println("Invalid input...");
         }
     }
 
@@ -338,11 +357,14 @@ public class CoursePlanningApp {
 
     private void changeCourseCredit(Course course) {
         System.out.println("Change " + course.getCourseName() + " credit to:");
-        credit = Integer.parseInt(input.nextLine());
 
         try {
+            credit = Integer.parseInt(input.nextLine());
             course.changeCourseCredit(credit);
             System.out.println(course.getCourseName() + " credit successfully changed to " + credit);
+        } catch (NumberFormatException numberFormatException) {
+            System.out.println("That is not a number \nPlease try again");
+            changeCourseCredit(course);
         } catch (InvalidCredit invalidCredit) {
             System.out.println("Invalid credit \nTry again");
             changeCourseCredit(course);
@@ -362,20 +384,25 @@ public class CoursePlanningApp {
     }
 
     private void processChangeCourseStatusCommand(String command, Course course) {
-        commandNum = Integer.parseInt(command);
+        try {
+            commandNum = Integer.parseInt(command);
 
-        if (commandNum == 1) {
-            course.setOngoing();
-            System.out.println(course.getCourseName() + " status successfully set to " + course.getCourseStatus());
-        } else if (commandNum == 2) {
-            course.setCompleted();
-            System.out.println(course.getCourseName() + " status successfully set to " + course.getCourseStatus());
-        } else if (commandNum == 3) {
-            course.setPlanning();
-            System.out.println(course.getCourseName() + " status successfully set to " + course.getCourseStatus());
-        } else {
+            if (commandNum == 1) {
+                course.setOngoing();
+                System.out.println(course.getCourseName() + " status successfully set to " + course.getCourseStatus());
+            } else if (commandNum == 2) {
+                course.setCompleted();
+                System.out.println(course.getCourseName() + " status successfully set to " + course.getCourseStatus());
+            } else if (commandNum == 3) {
+                course.setPlanning();
+                System.out.println(course.getCourseName() + " status successfully set to " + course.getCourseStatus());
+            } else {
+                System.out.println("Input invalid...");
+            }
+        } catch (NumberFormatException numberFormatException) {
             System.out.println("Input invalid...");
         }
+
     }
 
     private void displayChangeCourseStatusMenu() {
@@ -395,9 +422,14 @@ public class CoursePlanningApp {
         if (command.equals("y")) {
             name = course.getCourseName();
             System.out.println("What's the grade for " + name + "?");
-            commandNum = Integer.parseInt(input.nextLine());
-            course.setGrade(commandNum);
-            System.out.println(name + " is set to " + course.getCourseStatus() + " with grade " + commandNum);
+            try {
+                commandNum = Integer.parseInt(input.nextLine());
+                course.setGrade(commandNum);
+                System.out.println(name + " is set to " + course.getCourseStatus() + " with grade " + commandNum);
+            } catch (NumberFormatException numberFormatException) {
+                System.out.println("That's not a number \nPlease try again");
+                changeCourseGrade(course);
+            }
         } else if (command.equals("n")) {
             System.out.println("You can't set grade for a course you haven't finished");
         } else {
