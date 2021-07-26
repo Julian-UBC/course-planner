@@ -9,6 +9,7 @@ import model.CourseList;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+// Citation: Some of the code in this class are similar to TellerApp (C1 Lecture Lab)
 // Course Planning application
 public class CoursePlanningApp {
 
