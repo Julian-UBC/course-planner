@@ -15,6 +15,7 @@ public class CourseListTest {
     private CourseList courseList;
     private Course course;
     private Course course2;
+    private Course course3;
 
     private boolean isSuccessful;
 
@@ -122,34 +123,47 @@ public class CourseListTest {
 
     // Test removeRecentCourse method
     @Test
-    // When list is empty
+    // When list is empty -> throw EmptyList exception
     public void testRemoveRecentCourseEmpty() {
         assertTrue(courseList.isEmpty());
 
-        isSuccessful = courseList.removeRecentCourse();
+        try {
+            courseList.removeRecentCourse();
+            fail("EmptyList not thrown");
+        } catch (EmptyList emptyList) {
+            // do nothing
+        }
 
-        assertFalse(isSuccessful);
         assertEquals(0, courseList.length());
     }
 
     @Test
-    // When list is not empty
+    // When list is not empty -> EmptyList exception not thrown
     public void testRemoveRecentCourseNotEmpty() {
         assertTrue(courseList.addCourse(course));
         assertTrue(courseList.addCourse(course2));
 
         // REMOVE MATH 221
-        isSuccessful = courseList.removeRecentCourse();
+        try {
+            course3 = courseList.removeRecentCourse();
+            // do nothing
+        } catch (EmptyList emptyList) {
+            fail("Unexpected EmptyList thrown");
+        }
 
-        assertTrue(isSuccessful);
+        assertEquals(course2, course3);
         assertEquals(1, courseList.length());
         assertTrue(courseList.isCourseInList("CPSC 210"));
         assertFalse(courseList.isCourseInList("MATH 221"));
 
         // REMOVE CPSC 210
-        isSuccessful = courseList.removeRecentCourse();
+        try {
+            course3 = courseList.removeRecentCourse();
+        } catch (EmptyList emptyList) {
+            fail("Unexpected EmptyList thrown");
+        }
 
-        assertTrue(isSuccessful);
+        assertEquals(course, course3);
         assertTrue(courseList.isEmpty());
         assertFalse(courseList.isCourseInList("CPSC 210"));
     }

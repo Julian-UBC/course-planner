@@ -9,6 +9,7 @@ public class CourseList {
 
     private String courseListName;
     private ArrayList<Course> listOfCourse;
+    private Course course;
 
     // EFFECTS: initializes a CourseList with given name & empty course in the list
     //          throw InvalidName exception if name is an empty string
@@ -36,13 +37,13 @@ public class CourseList {
     // MODIFIES: this
     // EFFECTS: if the list is not empty, remove the last added course in the list and return true
     //          if the list is empty, return false
-    public boolean removeRecentCourse() {
+    public Course removeRecentCourse() throws EmptyList {
         if (isEmpty()) {
-            return false;
+            throw new EmptyList();
         } else {
             int size = length() - 1;
-            listOfCourse.remove(size);
-            return true;
+            course = listOfCourse.remove(size);
+            return course;
         }
     }
 

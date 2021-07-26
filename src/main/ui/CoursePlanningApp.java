@@ -152,15 +152,16 @@ public class CoursePlanningApp {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: processes user command
     private void processRemoveCommand(String command) {
         try {
             commandNum = Integer.parseInt(command);
 
             if (commandNum == 1) {
-                worklist.removeRecentCourse();
-                // print out what course is removed
+                processRemoveRecentCourse();
             } else if (commandNum == 2) {
-                removeCourse(command);
+                processRemoveCourse();
             } else if (commandNum == 9) {
                 seeMyWorklist();
             } else {
@@ -171,7 +172,20 @@ public class CoursePlanningApp {
         }
     }
 
-    private void removeCourse(String command) {
+    // MODIFIES: this
+    // EFFECTS: remove recent added course from worklist
+    private void processRemoveRecentCourse() {
+        try {
+            course = worklist.removeRecentCourse();
+            System.out.println(course.getCourseName() + " successfully removed");
+        } catch (EmptyList emptyList) {
+            System.out.println(worklist.getName() + " is empty");
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: remove intended course from worklist
+    private void processRemoveCourse() {
         System.out.println("Remove course:");
         command = input.nextLine().toUpperCase();
 
@@ -321,6 +335,8 @@ public class CoursePlanningApp {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: processes user command
     private void processChangeCourseDetailCommand(String command, Course course) {
         try {
             commandNum = Integer.parseInt(command);
@@ -341,6 +357,8 @@ public class CoursePlanningApp {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: change selected course name
     private void changeCourseName(Course course) {
         System.out.println("Change " + course.getCourseName() + " to:");
         String oldName = course.getCourseName();
@@ -355,6 +373,8 @@ public class CoursePlanningApp {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: change selected course credit
     private void changeCourseCredit(Course course) {
         System.out.println("Change " + course.getCourseName() + " credit to:");
 
@@ -371,6 +391,8 @@ public class CoursePlanningApp {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: change selected course status
     private void changeCourseStatus(Course course) {
         displayChangeCourseStatusMenu();
         command = input.nextLine();
@@ -383,6 +405,8 @@ public class CoursePlanningApp {
 
     }
 
+    // MODIFIES: this
+    // EFFECTS: processes user command and change selected course status
     private void processChangeCourseStatusCommand(String command, Course course) {
         try {
             commandNum = Integer.parseInt(command);
@@ -405,6 +429,7 @@ public class CoursePlanningApp {
 
     }
 
+    // EFFECTS: display menu of change course status options to user
     private void displayChangeCourseStatusMenu() {
         System.out.println("\nChoose from:");
         System.out.println("\t1 -> Change to ongoing");
@@ -413,6 +438,8 @@ public class CoursePlanningApp {
         System.out.println("\tc -> Cancel");
     }
 
+    // MODIFIES: this
+    // EFFECTS: change selected course grade
     private void changeCourseGrade(Course course) {
         System.out.println("Have you finished with " + course.getCourseName() + "?");
         System.out.println("y for yes");
@@ -437,6 +464,7 @@ public class CoursePlanningApp {
         }
     }
 
+    // EFFECTS: display menu of change course detail options to user
     private void displayChangeCourseDetailMenu() {
         System.out.println("\nSelect from:");
         System.out.println("\t1 -> Change course name");
