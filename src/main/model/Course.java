@@ -16,8 +16,9 @@ public class Course {
     private static final String ONGOING = "ongoing";
     private static final String COMPLETED = "completed";
 
-    // REQUIRES: name not an empty string, credit > 0
     // EFFECTS: initializes a course with given name and credit, planning as status, and grade = 0
+    //          throw InvalidName exception if name is an empty string
+    //          throw InvalidCredit exception if credit is <= 0
     public Course(String name, int credit) throws InvalidName, InvalidCredit {
         if (name.length() == 0) {
             throw new InvalidName();
@@ -31,9 +32,9 @@ public class Course {
         grade = 0;
     }
 
-    // REQUIRES: name not an empty string
     // MODIFIES: this
     // EFFECTS: change the course's name to the given name
+    //          throw InvalidName exception if name is an empty string
     public void changeCourseName(String name) throws InvalidName {
         if (name.length() == 0) {
             throw new InvalidName();
@@ -41,9 +42,9 @@ public class Course {
         courseName = name;
     }
 
-    // REQUIRES: credit > 0
     // MODIFIES: this
     // EFFECTS: change the course's credit to the given credit
+    //          throw InvalidCredit exception if credit is <= 0
     public void changeCourseCredit(int credit) throws InvalidCredit {
         if (credit <= 0) {
             throw new InvalidCredit();

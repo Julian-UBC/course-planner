@@ -10,8 +10,8 @@ public class CourseList {
     private String courseListName;
     private ArrayList<Course> listOfCourse;
 
-    // REQUIRES: name to be a non-empty string
     // EFFECTS: initializes a CourseList with given name & empty course in the list
+    //          throw InvalidName exception if name is an empty string
     public CourseList(String name) throws InvalidName {
         if (name.length() == 0) {
             throw new InvalidName();
@@ -61,9 +61,9 @@ public class CourseList {
         return false;
     }
 
-    // REQUIRES: name not an empty string
     // MODIFIES: this
     // EFFECTS: change the CourseList name to the given name
+    //          throw InvalidName exception if name is an empty string
     public void setCourseListName(String name) throws InvalidName {
         if (name.length() == 0) {
             throw new InvalidName();
@@ -77,8 +77,8 @@ public class CourseList {
         return listOfCourse.size();
     }
 
-    // REQUIRES: listOfCourse is not empty
     // EFFECTS: return list of courses
+    //          throw EmptyList exception if list of courses is empty
     public ArrayList<Course> getListOfCourses() throws EmptyList {
         if (isEmpty()) {
             throw new EmptyList();
