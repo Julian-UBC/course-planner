@@ -53,7 +53,7 @@ public class CourseList {
         Course course;
         for (int i = 0; i < length(); i++) {
             course = listOfCourse.get(i);
-            if (course.getCourseName() == courseName) {
+            if (course.getCourseName().equals(courseName)) {
                 listOfCourse.remove(i);
                 return true;
             }
@@ -101,7 +101,7 @@ public class CourseList {
     // EFFECTS: return true if given course's name is in the list; otherwise false
     public boolean isCourseInList(String name) {
         for (Course course: listOfCourse) {
-            if (course.getCourseName() == name) {
+            if (course.getCourseName().equals(name)) {
                 return true;
             }
         }

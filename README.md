@@ -11,8 +11,6 @@ or even students from any universities can use my application. The reason I want
 application for my project is because I want to use this application to help me plan what courses to take, so
 I can fulfill the requirements to graduate.
 
-P.S. I came up with this idea before knowing the functionality of *Degree Navigator* in SSC.
-
 User Stories
 ------------
 - As a user, I want to be able to add a course to my course list 
