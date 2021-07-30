@@ -17,3 +17,5 @@ User Stories
 - As a user, I want to be able to view the list of courses on my course list
 - As a user, I want to be able to remove a course from my course list
 - As a user, I want to be able to view the details of a specific course on my course list
+- As a user, I want to be able to save my worklists to a file
+- As a user, I want to be able to load my worklists from a file
