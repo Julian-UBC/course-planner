@@ -7,6 +7,7 @@ import org.json.JSONObject;
 import persistence.Writable;
 
 // Citation: Some of the code in this class are similar to JsonSerializationDemo (given in the project phase 2)
+// Represents a course having a name, credit, status, and grade
 public class Course implements Writable {
 
     private String courseName;

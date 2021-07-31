@@ -9,6 +9,7 @@ import persistence.Writable;
 import java.util.ArrayList;
 
 // Citation: Some of the code in this class are similar to JsonSerializationDemo (given in the project phase 2)
+// Represents a worklist having a name and a list of courses
 public class CourseList implements Writable {
 
     private String courseListName;

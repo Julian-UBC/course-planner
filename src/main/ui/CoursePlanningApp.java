@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 // Citation: Some of the code in this class are similar to TellerApp (C1 Lecture Lab)
+//           and JsonSerializationDemo (given in the project phase 2)
 // Course Planning application
 public class CoursePlanningApp {
 
@@ -325,12 +326,8 @@ public class CoursePlanningApp {
         if (course == null) {
             System.out.println("Course not found");
         } else {
-            System.out.println("\nCourse name: " + course.getCourseName());
-            System.out.println("Course credit: " + course.getCourseCredit());
-            System.out.println("Course status: " + course.getCourseStatus());
-            System.out.println("Course grade: " + course.getCourseGrade());
-
             changeCourseDetail(course);
+            seeMyWorklist();
         }
     }
 
@@ -340,6 +337,11 @@ public class CoursePlanningApp {
         keepItGoing = true;
 
         while (keepItGoing) {
+            System.out.println("\nCourse name: " + course.getCourseName());
+            System.out.println("Course credit: " + course.getCourseCredit());
+            System.out.println("Course status: " + course.getCourseStatus());
+            System.out.println("Course grade: " + course.getCourseGrade());
+
             displayChangeCourseDetailMenu();
             command = input.nextLine();
 
