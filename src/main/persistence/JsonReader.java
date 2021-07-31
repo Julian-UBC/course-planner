@@ -13,8 +13,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.stream.Stream;
 
-import static com.sun.tools.internal.ws.wsdl.parser.Util.fail;
-
+// Citation: Most of the code in this class are similar to JsonSerializationDemo (given in the project phase 2)
 public class JsonReader {
     private String source;
 
