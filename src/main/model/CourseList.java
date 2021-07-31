@@ -2,10 +2,13 @@ package model;
 
 import exceptions.EmptyList;
 import exceptions.InvalidName;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
 
 import java.util.ArrayList;
 
-public class CourseList {
+public class CourseList implements Writable {
 
     private String courseListName;
     private ArrayList<Course> listOfCourse;
@@ -117,5 +120,24 @@ public class CourseList {
     // EFFECTS: return true if the list is empty; otherwise false
     public boolean isEmpty() {
         return listOfCourse.isEmpty();
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", courseListName);
+        json.put("worklist", worklistToJson());
+        return json;
+    }
+
+    // EFFECTS: returns things in this list of course as a JSON array
+    private JSONArray worklistToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Course c : listOfCourse) {
+            jsonArray.put(c.toJson());
+        }
+
+        return jsonArray;
     }
 }

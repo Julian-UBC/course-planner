@@ -3,7 +3,10 @@ package model;
 import exceptions.InvalidCredit;
 import exceptions.InvalidName;
 
-public class Course {
+import org.json.JSONObject;
+import persistence.Writable;
+
+public class Course implements Writable {
 
     private String courseName;
     private int courseCredit;
@@ -96,5 +99,15 @@ public class Course {
     // EFFECTS: return the grade gotten in the course
     public int getCourseGrade() {
         return grade;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", courseName);
+        json.put("credit", Integer.toString(courseCredit));
+        json.put("status", status);
+        json.put("grade", Integer.toString(grade));
+        return json;
     }
 }

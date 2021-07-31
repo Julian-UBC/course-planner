@@ -1,0 +1,23 @@
+{
+  "name": "Dream",
+  "worklist": [
+    {
+      "name": "CPSC 221",
+      "credit": "4",
+      "status": "planning",
+      "grade": "0"
+    },
+    {
+      "name": "CPSC 210",
+      "credit": "4",
+      "status": "ongoing",
+      "grade": "0"
+    },
+    {
+      "name": "MATH 221",
+      "credit": "3",
+      "status": "completed",
+      "grade": "90"
+    }
+  ]
+}

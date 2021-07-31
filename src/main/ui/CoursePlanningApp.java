@@ -5,7 +5,11 @@ import exceptions.InvalidCredit;
 import exceptions.InvalidName;
 import model.Course;
 import model.CourseList;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -13,9 +17,12 @@ import java.util.Scanner;
 // Course Planning application
 public class CoursePlanningApp {
 
+    private static final String JSON_STORE = "./data/courseList.json";
     private Scanner input;
     private CourseList worklist;
     private Course course;
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
 
     private String name;
     private int credit;
@@ -39,6 +46,9 @@ public class CoursePlanningApp {
         command = null;
         input = new Scanner(System.in);
         makeDefaultWorklist();
+
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
 
         while (keepGoing) {
             displayMenu();
@@ -78,8 +88,12 @@ public class CoursePlanningApp {
             myWorklistName();
         } else if (command.equals("ch")) {
             changeWorklistName();
-        } else if (command.equals("s")) {
+        } else if (command.equals("m")) {
             seeMyWorklist();
+        } else if (command.equals("s")) {
+            saveMyWorklist();
+        } else if (command.equals("l")) {
+            loadMyWorklist();
         } else {
             System.out.println("Input invalid...");
         }
@@ -271,7 +285,9 @@ public class CoursePlanningApp {
         System.out.println("\tr  -> Remove Course");
         System.out.println("\tg  -> My Worklist Name");
         System.out.println("\tch -> Change Worklist Name");
-        System.out.println("\ts  -> See My Worklist");
+        System.out.println("\tm  -> See My Worklist");
+        System.out.println("\ts  -> Save My Worklist");
+        System.out.println("\tl  -> Load My Worklist");
         System.out.println("\tq  -> Close App");
     }
 
@@ -472,6 +488,56 @@ public class CoursePlanningApp {
         System.out.println("\t3 -> Change course status");
         System.out.println("\t4 -> Change course grade");
         System.out.println("\tb -> Back");
+    }
+
+    // EFFECTS: saves the CourseList to file
+    private void saveCourseList() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(worklist);
+            jsonWriter.close();
+            System.out.println("Saved " + worklist.getName() + " to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loads CourseList from file
+    private void loadCourseList() {
+        try {
+            worklist = jsonReader.read();
+            System.out.println("Loaded " + worklist.getName() + " from " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
+        } catch (Exception e) {
+            // won't happen
+        }
+    }
+
+    // EFFECTS: saves the worklist to file
+    private void saveMyWorklist() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(worklist);
+            jsonWriter.close();
+            System.out.println("Saved " + worklist.getName() + " to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loads worklist from file
+    private void loadMyWorklist() {
+        try {
+            worklist = jsonReader.read();
+            System.out.println("Loaded " + worklist.getName() + " from " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
+        } catch (Exception e) {
+            // won't happen
+        }
     }
 
 }
