@@ -492,31 +492,6 @@ public class CoursePlanningApp {
         System.out.println("\tb -> Back");
     }
 
-    // EFFECTS: saves the CourseList to file
-    private void saveCourseList() {
-        try {
-            jsonWriter.open();
-            jsonWriter.write(worklist);
-            jsonWriter.close();
-            System.out.println("Saved " + worklist.getName() + " to " + JSON_STORE);
-        } catch (FileNotFoundException e) {
-            System.out.println("Unable to write to file: " + JSON_STORE);
-        }
-    }
-
-    // MODIFIES: this
-    // EFFECTS: loads CourseList from file
-    private void loadCourseList() {
-        try {
-            worklist = jsonReader.read();
-            System.out.println("Loaded " + worklist.getName() + " from " + JSON_STORE);
-        } catch (IOException e) {
-            System.out.println("Unable to read from file: " + JSON_STORE);
-        } catch (Exception e) {
-            // won't happen
-        }
-    }
-
     // EFFECTS: saves the worklist to file
     private void saveMyWorklist() {
         try {

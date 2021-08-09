@@ -61,6 +61,7 @@ public class Course implements Writable {
     // EFFECTS: set status to ongoing
     public void setOngoing() {
         status = ONGOING;
+        grade = 0;
     }
 
     // MODIFIES: this
@@ -73,6 +74,7 @@ public class Course implements Writable {
     // EFFECTS: set status to planning
     public void setPlanning() {
         status = PLANNING;
+        grade = 0;
     }
 
     // MODIFIES: this
@@ -111,5 +113,10 @@ public class Course implements Writable {
         json.put("status", status);
         json.put("grade", Integer.toString(grade));
         return json;
+    }
+
+    @Override
+    public String toString() {
+        return courseName;
     }
 }
