@@ -7,6 +7,7 @@ import model.Course;
 import model.CourseList;
 import persistence.JsonReader;
 import persistence.JsonWriter;
+import ui.tools.BackgroundMenuBar;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -55,7 +56,7 @@ public class CoursePlanningPage extends JFrame implements ActionListener {
     private JTextField accessCourseName;
     private JTextField renameWorklist;
 
-    private JMenuBar menuBar;
+    private BackgroundMenuBar menuBar;
     private JMenu fileMenu;
 
     private JMenuItem newItem;
@@ -129,11 +130,17 @@ public class CoursePlanningPage extends JFrame implements ActionListener {
 
     private void initializeMenuBar() {
         fileMenu = new JMenu("File");
+        fileMenu.setOpaque(false);
 
         newItem = new JMenuItem("New Worklist");
         loadItem = new JMenuItem("Load");
         saveItem = new JMenuItem("Save");
         exitItem = new JMenuItem("Exit");
+
+        newItem.setBackground(new Color(0xb3bcc9));
+        loadItem.setBackground(new Color(0xb3bcc9));
+        saveItem.setBackground(new Color(0xb3bcc9));
+        exitItem.setBackground(new Color(0xb3bcc9));
 
         newItem.addActionListener(this);
         loadItem.addActionListener(this);
@@ -145,8 +152,9 @@ public class CoursePlanningPage extends JFrame implements ActionListener {
         fileMenu.add(saveItem);
         fileMenu.add(exitItem);
 
-        menuBar = new JMenuBar();
+        menuBar = new BackgroundMenuBar();
         menuBar.add(fileMenu);
+        menuBar.setColor(new Color(0xb3bcc9));
 
     }
 

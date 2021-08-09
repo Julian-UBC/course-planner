@@ -8,8 +8,8 @@ import model.CourseList;
 public class Main {
 
     public static void main(String[] args) {
-        new WelcomePage();
-//        new CoursePlanningPage();
+//        new WelcomePage();
+        new CoursePlanningPage();
 //        CourseList worklist = null;
 //        try {
 //            worklist = new CourseList("Dream");
