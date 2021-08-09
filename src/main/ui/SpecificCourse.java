@@ -104,30 +104,34 @@ public class SpecificCourse extends JFrame implements ActionListener {
 
     private void makeCourseNameLabel() {
         courseName = new JLabel();
-        display = "Course name: " + course.getCourseName();
+        display = "Course name : " + course.getCourseName();
         courseName.setText(display);
         courseName.setBounds(10, 10, 200, 30);
+        courseName.setFont(new Font("Batang", Font.PLAIN, 15));
     }
 
     private void makeCourseCreditLabel() {
         courseCredit = new JLabel();
         display = "Credit           : " + course.getCourseCredit();
         courseCredit.setText(display);
-        courseCredit.setBounds(10, 40, 120, 30);
+        courseCredit.setBounds(10, 40, 150, 30);
+        courseCredit.setFont(new Font("Batang", Font.PLAIN, 15));
     }
 
     private void makeCourseStatusLabel() {
         courseStatus = new JLabel();
-        display = "Status           : " + course.getCourseStatus();
+        display = "Status          : " + course.getCourseStatus();
         courseStatus.setText(display);
         courseStatus.setBounds(10, 70, 200, 30);
+        courseStatus.setFont(new Font("Batang", Font.PLAIN, 15));
     }
 
     private void makeCourseGradeLabel() {
         courseGrade = new JLabel();
-        display = "Grade            : " + course.getCourseGrade();
+        display = "Grade           : " + course.getCourseGrade();
         courseGrade.setText(display);
-        courseGrade.setBounds(10, 100, 120, 30);
+        courseGrade.setBounds(10, 100, 150, 30);
+        courseGrade.setFont(new Font("Batang", Font.PLAIN, 15));
     }
 
     private void makeCourseChangeDetailPanel() {
@@ -182,15 +186,12 @@ public class SpecificCourse extends JFrame implements ActionListener {
 
         planningStatus = new JRadioButton("planning");
         planningStatus.setBounds(110, 10, 100, 30);
-//        planningStatus.addActionListener(this);
 
         ongoingStatus = new JRadioButton("ongoing");
         ongoingStatus.setBounds(210, 10, 100, 30);
-//        ongoingStatus.addActionListener(this);
 
         completedStatus = new JRadioButton("completed");
         completedStatus.setBounds(310, 10, 100, 30);
-//        completedStatus.addActionListener(this);
 
         ButtonGroup statusGroup = new ButtonGroup();
         statusGroup.add(planningStatus);

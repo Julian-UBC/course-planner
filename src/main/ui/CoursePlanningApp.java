@@ -15,7 +15,7 @@ import java.util.Scanner;
 
 // Citation: Some of the code in this class are similar to TellerApp (C1 Lecture Lab)
 //           and JsonSerializationDemo (given in the project phase 2)
-// Course Planning application
+// Course Planning application with console UI
 public class CoursePlanningApp {
 
     private static final String JSON_STORE = "./data/courseList.json";

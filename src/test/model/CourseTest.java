@@ -189,4 +189,10 @@ class CourseTest {
         assertEquals("completed", course.getCourseStatus());
         assertEquals(95, course.getCourseGrade());
     }
+
+    // Test toString method
+    @Test
+    public void testToString() {
+        assertEquals("CPSC 210", course.toString());
+    }
 }

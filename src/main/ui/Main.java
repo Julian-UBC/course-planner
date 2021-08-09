@@ -21,5 +21,7 @@ public class Main {
 //        } catch (InvalidCredit invalidCredit) {
 //            invalidCredit.printStackTrace();
 //        }
+//        new InputNewWorklistName();
+//        new ThankYouPage();
     }
 }

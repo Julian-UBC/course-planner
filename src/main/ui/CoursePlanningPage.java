@@ -14,10 +14,13 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-public class CoursePlanningPage extends JFrame implements ListSelectionListener, ActionListener {
+// Citation: https://docs.oracle.com/javase/tutorial/uiswing/examples/components/index.html -> List Demo Project
+// Main page of Course Planning application with GUI
+public class CoursePlanningPage extends JFrame implements ActionListener {
 
     private static final String JSON_STORE = "./data/courseList.json";
     private CourseList worklist;
@@ -28,6 +31,7 @@ public class CoursePlanningPage extends JFrame implements ListSelectionListener,
     private boolean isSuccessful;
     private String name;
     private int credit;
+    private String worklistName = "Worklist 1";
 
     private JList<Course> courses;
     private DefaultListModel<Course> coursesModel;
@@ -35,6 +39,7 @@ public class CoursePlanningPage extends JFrame implements ListSelectionListener,
     private JButton addCourseButton;
     private JButton removeCourseButton;
     private JButton accessCourseButton;
+    private JButton renameWorklistButton;
 
     private JScrollPane coursesScrollPane;
     private JPanel inputPanel;
@@ -42,75 +47,105 @@ public class CoursePlanningPage extends JFrame implements ListSelectionListener,
     private JPanel addCoursePanel;
     private JPanel removeCoursePanel;
     private JPanel accessCoursePanel;
+    private JPanel renameWorklistPanel;
 
     private JTextField addCourseName;
     private JTextField addCourseCredit;
     private JTextField removeCourseName;
     private JTextField accessCourseName;
+    private JTextField renameWorklist;
 
     private JMenuBar menuBar;
     private JMenu fileMenu;
 
+    private JMenuItem newItem;
     private JMenuItem loadItem;
     private JMenuItem saveItem;
     private JMenuItem exitItem;
 
     public CoursePlanningPage() {
+        initializeNewWorklist();
+        runCoursePlanningApp();
+    }
 
+    public CoursePlanningPage(String worklistName) {
+        this.worklistName = worklistName;
+        initializeNewWorklist();
+        runCoursePlanningApp();
+    }
+
+    private void runCoursePlanningApp() {
         initializeJson();
-        initializeDefaultWorklist();
 
         coursesModel = new DefaultListModel<>();
 
-        courses = new JList<>(coursesModel);
-//        courses.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-//        courses.setSelectedIndex(0);
-//        courses.addListSelectionListener(this);
-        courses.setVisibleRowCount(5);
+        initializeCourses();
 
         makeAddCoursePanel();
         makeRemoveCoursePanel();
         makeAccessSpecificCoursePanel();
+        makeChangeWorklistNamePanel();
+        makeCoursesScrollPane();
 
-        coursesScrollPane = new JScrollPane(courses);
-        coursesScrollPane.setBounds(0,0,500,200);
-
-        initializeModifyPanel();
+//        initializeModifyPanel();
         initializeInputPanel();
-
-        inputPanel.add(addCoursePanel);
-        inputPanel.add(removeCoursePanel);
-        inputPanel.add(accessCoursePanel);
+        addToInputPanel();
 
         initializeMenuBar();
         setCoursePlanningFrame();
 
-        this.add(coursesScrollPane);
-        this.add(modifyPanel);
-        this.add(inputPanel);
-        this.setJMenuBar(menuBar);
+        addToThisFrame();
 
         this.setVisible(true);
+    }
+
+    private void addToThisFrame() {
+        this.add(coursesScrollPane);
+//        this.add(modifyPanel);
+        this.add(inputPanel);
+        this.setJMenuBar(menuBar);
+    }
+
+    private void addToInputPanel() {
+        inputPanel.add(addCoursePanel);
+        inputPanel.add(removeCoursePanel);
+        inputPanel.add(accessCoursePanel);
+        inputPanel.add(renameWorklistPanel);
+    }
+
+    private void makeCoursesScrollPane() {
+        coursesScrollPane = new JScrollPane(courses);
+        coursesScrollPane.setBounds(0,0,500,200);
+    }
+
+    private void initializeCourses() {
+        courses = new JList<>(coursesModel);
+//        courses.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+//        courses.setSelectedIndex(0);
+//        courses.addListSelectionListener(this);
+//        courses.setVisibleRowCount(5);
+        courses.setFont(new Font("Batang", Font.PLAIN, 15));
     }
 
     private void initializeMenuBar() {
         fileMenu = new JMenu("File");
 
+        newItem = new JMenuItem("New Worklist");
         loadItem = new JMenuItem("Load");
         saveItem = new JMenuItem("Save");
         exitItem = new JMenuItem("Exit");
 
+        newItem.addActionListener(this);
         loadItem.addActionListener(this);
         saveItem.addActionListener(this);
         exitItem.addActionListener(this);
 
+        fileMenu.add(newItem);
         fileMenu.add(loadItem);
         fileMenu.add(saveItem);
         fileMenu.add(exitItem);
 
         menuBar = new JMenuBar();
-        menuBar.setBackground(Color.GREEN);
-        menuBar.setOpaque(true);
         menuBar.add(fileMenu);
 
     }
@@ -124,7 +159,6 @@ public class CoursePlanningPage extends JFrame implements ListSelectionListener,
     private void initializeInputPanel() {
         inputPanel = new JPanel();
         inputPanel.setBounds(500, 0, 1000, 500);
-        inputPanel.setBackground(Color.BLUE);
         inputPanel.setLayout(null);
     }
 
@@ -196,11 +230,31 @@ public class CoursePlanningPage extends JFrame implements ListSelectionListener,
         accessCoursePanel.add(courseNameLabel);
     }
 
-    private void initializeDefaultWorklist() {
+    private void makeChangeWorklistNamePanel() {
+        JLabel courseNameLabel = new JLabel("Worklist Name:");
+        courseNameLabel.setBounds(10, 10, 100, 30);
+
+        renameWorklist = new JTextField();
+        renameWorklist.setBounds(110, 10, 200, 30);
+
+        renameWorklistButton = new JButton("Rename Worklist");
+        renameWorklistButton.addActionListener(this);
+        renameWorklistButton.setBounds(80, 50, 150, 30);
+
+        renameWorklistPanel = new JPanel();
+        renameWorklistPanel.setLayout(null);
+        renameWorklistPanel.setBounds(0, 310, 350, 80);
+
+        renameWorklistPanel.add(renameWorklist);
+        renameWorklistPanel.add(renameWorklistButton);
+        renameWorklistPanel.add(courseNameLabel);
+    }
+
+    private void initializeNewWorklist() {
         try {
-            worklist = new CourseList("Worklist 1");
+            worklist = new CourseList(this.worklistName);
         } catch (InvalidName invalidName) {
-            invalidName.printStackTrace();
+            // do nothing
         }
     }
 
@@ -217,10 +271,10 @@ public class CoursePlanningPage extends JFrame implements ListSelectionListener,
         this.setTitle(worklist.getName());
     }
 
-    @Override
-    public void valueChanged(ListSelectionEvent e) {
-
-    }
+//    @Override
+//    public void valueChanged(ListSelectionEvent e) {
+//
+//    }
 
     // EFFECTS: saves the worklist to file
     private void saveMyWorklist() {
@@ -257,26 +311,42 @@ public class CoursePlanningPage extends JFrame implements ListSelectionListener,
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == addCourseButton) {
-            addNewCourse(addCourseName.getText(), addCourseCredit.getText());
-            addCourseName.setText("");
-            addCourseCredit.setText("");
-        }
-        if (e.getSource() == removeCourseButton) {
+            proccessAddNewCourse();
+        } else if (e.getSource() == removeCourseButton) {
             removeCourse(removeCourseName.getText());
             removeCourseName.setText("");
-        }
-        if (e.getSource() == accessCourseButton) {
-            SpecificCourse specificCourse = new SpecificCourse(accessCourseName.getText(), worklist);
+        } else if (e.getSource() == accessCourseButton) {
+            new SpecificCourse(accessCourseName.getText(), worklist);
             accessCourseName.setText("");
-        }
-        if (e.getSource() == loadItem) {
+        } else if (e.getSource() == newItem) {
+            dispose();
+            new InputNewWorklistName();
+        } else if (e.getSource() == loadItem) {
             loadMyWorklist();
-        }
-        if (e.getSource() == saveItem) {
+        } else if (e.getSource() == saveItem) {
             saveMyWorklist();
+        } else if (e.getSource() == exitItem) {
+            dispose();
+            new ThankYouPage();
+        } else if (e.getSource() == renameWorklistButton) {
+            renameWorklist(renameWorklist.getText());
+            renameWorklist.setText("");
         }
-        if (e.getSource() == exitItem) {
-            System.exit(0);
+    }
+
+    private void proccessAddNewCourse() {
+        addNewCourse(addCourseName.getText(), addCourseCredit.getText());
+        addCourseName.setText("");
+        addCourseCredit.setText("");
+    }
+
+    private void renameWorklist(String name) {
+        this.name = name;
+        try {
+            worklist.setCourseListName(this.name);
+            this.setTitle(worklist.getName());
+        } catch (InvalidName invalidName) {
+            // do nothing
         }
     }
 
@@ -291,9 +361,9 @@ public class CoursePlanningPage extends JFrame implements ListSelectionListener,
                 coursesModel.addElement(course);
             }
         } catch (InvalidName invalidName) {
-            invalidName.printStackTrace();
+            // do nothing
         } catch (InvalidCredit invalidCredit) {
-            invalidCredit.printStackTrace();
+            // do nothing
         }
     }
 

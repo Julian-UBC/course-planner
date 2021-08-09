@@ -7,8 +7,8 @@
             "status": "ongoing"
         },
         {
-            "grade": "100",
-            "name": "PHYS 131",
+            "grade": "95",
+            "name": "MATH 221",
             "credit": "3",
             "status": "completed"
         },
@@ -17,6 +17,12 @@
             "name": "CPSC 213",
             "credit": "4",
             "status": "planning"
+        },
+        {
+            "grade": "100",
+            "name": "PHYS 119",
+            "credit": "1",
+            "status": "completed"
         }
     ],
     "name": "Dream"

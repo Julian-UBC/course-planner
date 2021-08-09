@@ -4,7 +4,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.AudioSystem;
+
+// Welcome page of Course Planning application with GUI
 public class WelcomePage extends JFrame implements ActionListener {
     private static final String OPEN_APP = "Open Course Planning";
     private JButton openAppButton;
@@ -30,7 +36,7 @@ public class WelcomePage extends JFrame implements ActionListener {
     }
 
     private JPanel makeWelcomePanel() {
-        ImageIcon welcomeImage = new ImageIcon("images/welcome.jpg");
+        ImageIcon welcomeImage = new ImageIcon("data/welcome.jpg");
 
         JLabel welcomeLabel = new JLabel();
         welcomeLabel.setIcon(welcomeImage);
@@ -62,9 +68,23 @@ public class WelcomePage extends JFrame implements ActionListener {
         return openAppPanel;
     }
 
+    public void playSound(String soundName) {
+        try {
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(soundName).getAbsoluteFile());
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioInputStream);
+            clip.start();
+        } catch (Exception ex) {
+            System.out.println("Error with playing sound.");
+            ex.printStackTrace();
+        }
+    }
+
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == openAppButton) {
+            playSound("data/WelcomeSound.wav");
             this.dispose();
             CoursePlanningPage myFrame = new CoursePlanningPage();
         }
