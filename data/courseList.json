@@ -1,10 +1,10 @@
 {
     "worklist": [
         {
-            "grade": "0",
-            "name": "CPSC 210",
-            "credit": "4",
-            "status": "ongoing"
+            "grade": "90",
+            "name": "CPSC 110",
+            "credit": "3",
+            "status": "completed"
         },
         {
             "grade": "95",
@@ -25,5 +25,5 @@
             "status": "completed"
         }
     ],
-    "name": "Dream"
+    "name": "Worklist 101"
 }

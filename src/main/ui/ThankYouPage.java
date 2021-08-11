@@ -17,6 +17,7 @@ public class ThankYouPage extends JFrame {
     Timer timer;
     TimerTask exitApp;
 
+    // EFFECTS: initializes a thank you page
     public ThankYouPage() {
         setThankYou();
         setTimer();
@@ -31,6 +32,8 @@ public class ThankYouPage extends JFrame {
         this.setVisible(true);
     }
 
+    // MODIFIES: this
+    // EFFECTS: set the thank you image
     private void setThankYou() {
         ImageIcon thankYouImage = new ImageIcon("data/thankyou.png");
 
@@ -40,6 +43,7 @@ public class ThankYouPage extends JFrame {
         this.add(thankYouLabel);
     }
 
+    // EFFECTS: set the timer to close the app
     private void setTimer() {
         timer = new Timer();
         exitApp = new TimerTask() {
@@ -49,11 +53,13 @@ public class ThankYouPage extends JFrame {
         };
     }
 
+    // EFFECTS: close the app
     private void exit() {
         playSound("data/YoureWelcome.wav");
         timer.schedule(exitApp, new Date(System.currentTimeMillis() + 5 * 1000));
     }
 
+    // EFFECTS: play sound effects
     public void playSound(String soundName) {
         try {
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(soundName).getAbsoluteFile());

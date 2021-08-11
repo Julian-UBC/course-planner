@@ -10,12 +10,9 @@ import persistence.JsonWriter;
 import ui.tools.BackgroundMenuBar;
 
 import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -64,17 +61,21 @@ public class CoursePlanningPage extends JFrame implements ActionListener {
     private JMenuItem saveItem;
     private JMenuItem exitItem;
 
+    // EFFECTS: initializes the main page for Course Planning App
     public CoursePlanningPage() {
         initializeNewWorklist();
         runCoursePlanningApp();
     }
 
+    // EFFECTS: initializes the main page for Course Planning App with the given worklist name
     public CoursePlanningPage(String worklistName) {
         this.worklistName = worklistName;
         initializeNewWorklist();
         runCoursePlanningApp();
     }
 
+    // MODIFIES: this
+    // EFFECTS: run the course planning app
     private void runCoursePlanningApp() {
         initializeJson();
 
@@ -100,6 +101,8 @@ public class CoursePlanningPage extends JFrame implements ActionListener {
         this.setVisible(true);
     }
 
+    // MODIFIES: this
+    // EFFECTS: add component to (this) frame
     private void addToThisFrame() {
         this.add(coursesScrollPane);
 //        this.add(modifyPanel);
@@ -107,6 +110,8 @@ public class CoursePlanningPage extends JFrame implements ActionListener {
         this.setJMenuBar(menuBar);
     }
 
+    // MODIFIES: this
+    // EFFECTS: add component to input panel
     private void addToInputPanel() {
         inputPanel.add(addCoursePanel);
         inputPanel.add(removeCoursePanel);
@@ -114,11 +119,15 @@ public class CoursePlanningPage extends JFrame implements ActionListener {
         inputPanel.add(renameWorklistPanel);
     }
 
+    // MODIFIES: this
+    // EFFECTS: make a panel for displaying list of courses
     private void makeCoursesScrollPane() {
         coursesScrollPane = new JScrollPane(courses);
         coursesScrollPane.setBounds(0,0,500,200);
     }
 
+    // MODIFIES: this
+    // EFFECTS: initializes JList for courses
     private void initializeCourses() {
         courses = new JList<>(coursesModel);
 //        courses.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -128,6 +137,8 @@ public class CoursePlanningPage extends JFrame implements ActionListener {
         courses.setFont(new Font("Batang", Font.PLAIN, 15));
     }
 
+    // MODIFIES: this
+    // EFFECTS: initializes a new menu bar
     private void initializeMenuBar() {
         fileMenu = new JMenu("File");
         fileMenu.setOpaque(false);
@@ -164,12 +175,16 @@ public class CoursePlanningPage extends JFrame implements ActionListener {
         modifyPanel.setBackground(Color.GREEN);
     }
 
+    // MODIFIES: this
+    // EFFECTS: make a new input panel
     private void initializeInputPanel() {
         inputPanel = new JPanel();
         inputPanel.setBounds(500, 0, 1000, 500);
         inputPanel.setLayout(null);
     }
 
+    // MODIFIES: this
+    // EFFECTS: make a panel for adding course
     private void makeAddCoursePanel() {
         JLabel courseNameLabel = new JLabel("Course Name:");
         courseNameLabel.setBounds(10, 10, 100, 30);
@@ -198,6 +213,8 @@ public class CoursePlanningPage extends JFrame implements ActionListener {
         addCoursePanel.add(courseCreditLabel);
     }
 
+    // MODIFIES: this
+    // EFFECTS: make a panel for removing course
     private void makeRemoveCoursePanel() {
         JLabel courseNameLabel = new JLabel("Course Name:");
         courseNameLabel.setBounds(10, 10, 100, 30);
@@ -218,6 +235,8 @@ public class CoursePlanningPage extends JFrame implements ActionListener {
         removeCoursePanel.add(courseNameLabel);
     }
 
+    // MODIFIES: this
+    // EFFECTS: make a panel for accessing specific course
     private void makeAccessSpecificCoursePanel() {
         JLabel courseNameLabel = new JLabel("Course Name:");
         courseNameLabel.setBounds(10, 10, 100, 30);
@@ -238,6 +257,8 @@ public class CoursePlanningPage extends JFrame implements ActionListener {
         accessCoursePanel.add(courseNameLabel);
     }
 
+    // MODIFIES: this
+    // EFFECTS: make a panel for changing worklist name
     private void makeChangeWorklistNamePanel() {
         JLabel courseNameLabel = new JLabel("Worklist Name:");
         courseNameLabel.setBounds(10, 10, 100, 30);
@@ -258,6 +279,8 @@ public class CoursePlanningPage extends JFrame implements ActionListener {
         renameWorklistPanel.add(courseNameLabel);
     }
 
+    // MODIFIES: this
+    // EFFECTS: initializes new worklist
     private void initializeNewWorklist() {
         try {
             worklist = new CourseList(this.worklistName);
@@ -265,12 +288,15 @@ public class CoursePlanningPage extends JFrame implements ActionListener {
             // do nothing
         }
     }
-
+    // MODIFIES: this
+    // EFFECTS: initializes Json
     private void initializeJson() {
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
     }
 
+    // MODIFIES: this
+    // EFFECTS: set the frame for this page
     private void setCoursePlanningFrame() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(null);
@@ -319,7 +345,7 @@ public class CoursePlanningPage extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == addCourseButton) {
-            proccessAddNewCourse();
+            processAddNewCourse();
         } else if (e.getSource() == removeCourseButton) {
             removeCourse(removeCourseName.getText());
             removeCourseName.setText("");
@@ -342,12 +368,16 @@ public class CoursePlanningPage extends JFrame implements ActionListener {
         }
     }
 
-    private void proccessAddNewCourse() {
+    // MODIFIES: this
+    // EFFECTS: process the adding course feature
+    private void processAddNewCourse() {
         addNewCourse(addCourseName.getText(), addCourseCredit.getText());
         addCourseName.setText("");
         addCourseCredit.setText("");
     }
 
+    // MODIFIES: this
+    // EFFECTS: process the rename worklist feature
     private void renameWorklist(String name) {
         this.name = name;
         try {
@@ -358,6 +388,8 @@ public class CoursePlanningPage extends JFrame implements ActionListener {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: add new course to the list of courses
     private void addNewCourse(String name, String credit) {
         this.name = name.toUpperCase();
         this.credit = Integer.parseInt(credit);
@@ -375,6 +407,8 @@ public class CoursePlanningPage extends JFrame implements ActionListener {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: remove a course from the list of courses
     private void removeCourse(String name) {
         this.name = name.toUpperCase();
         course = worklist.getCourse(this.name);

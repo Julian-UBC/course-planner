@@ -46,6 +46,7 @@ public class SpecificCourse extends JFrame implements ActionListener {
     private JButton courseChangeStatusButton;
     private JButton courseChangeGradeButton;
 
+    // EFFECTS: initializes a new page for a specific course
     public SpecificCourse(String name, CourseList worklist) {
         this.worklistName = name.toUpperCase();
         this.worklist = worklist;
@@ -75,6 +76,8 @@ public class SpecificCourse extends JFrame implements ActionListener {
         this.setVisible(true);
     }
 
+    // MODIFIES: this
+    // EFFECTS: set the frame for this page
     private void setSpecificCourseFrame() {
         this.setLayout(null);
         this.setSize(new Dimension(700, 400));
@@ -82,6 +85,8 @@ public class SpecificCourse extends JFrame implements ActionListener {
         this.setTitle(this.name);
     }
 
+    // MODIFIES: this
+    // EFFECTS: add components to the detail panel
     private void addToCourseDetailPanel() {
         courseDetailPanel.add(courseName);
         courseDetailPanel.add(courseCredit);
@@ -89,6 +94,8 @@ public class SpecificCourse extends JFrame implements ActionListener {
         courseDetailPanel.add(courseGrade);
     }
 
+    // MODIFIES: this
+    // EFFECTS: add components to the change detail panel
     private void addToCourseChangeDetailPanel() {
         courseChangeDetailPanel.add(courseChangeNamePanel);
         courseChangeDetailPanel.add(courseChangeCreditPanel);
@@ -96,12 +103,16 @@ public class SpecificCourse extends JFrame implements ActionListener {
         courseChangeDetailPanel.add(courseChangeGradePanel);
     }
 
+    // MODIFIES: this
+    // EFFECTS: make a new detail panel
     private void makeCourseDetailPanel() {
         courseDetailPanel = new JPanel();
         courseDetailPanel.setBounds(0, 0, 250, 200);
         courseDetailPanel.setLayout(null);
     }
 
+    // MODIFIES: this
+    // EFFECTS: make the course name label
     private void makeCourseNameLabel() {
         courseName = new JLabel();
         display = "Course name : " + course.getCourseName();
@@ -110,6 +121,8 @@ public class SpecificCourse extends JFrame implements ActionListener {
         courseName.setFont(new Font("Batang", Font.PLAIN, 15));
     }
 
+    // MODIFIES: this
+    // EFFECTS: make the course credit label
     private void makeCourseCreditLabel() {
         courseCredit = new JLabel();
         display = "Credit           : " + course.getCourseCredit();
@@ -118,6 +131,8 @@ public class SpecificCourse extends JFrame implements ActionListener {
         courseCredit.setFont(new Font("Batang", Font.PLAIN, 15));
     }
 
+    // MODIFIES: this
+    // EFFECTS: make the course status label
     private void makeCourseStatusLabel() {
         courseStatus = new JLabel();
         display = "Status          : " + course.getCourseStatus();
@@ -126,6 +141,8 @@ public class SpecificCourse extends JFrame implements ActionListener {
         courseStatus.setFont(new Font("Batang", Font.PLAIN, 15));
     }
 
+    // MODIFIES: this
+    // EFFECTS: make the course grade label
     private void makeCourseGradeLabel() {
         courseGrade = new JLabel();
         display = "Grade           : " + course.getCourseGrade();
@@ -134,12 +151,16 @@ public class SpecificCourse extends JFrame implements ActionListener {
         courseGrade.setFont(new Font("Batang", Font.PLAIN, 15));
     }
 
+    // MODIFIES: this
+    // EFFECTS: make a new change detail panel
     private void makeCourseChangeDetailPanel() {
         courseChangeDetailPanel = new JPanel();
         courseChangeDetailPanel.setBounds(250, 0, 450, 400);
         courseChangeDetailPanel.setLayout(null);
     }
 
+    // MODIFIES: this
+    // EFFECTS: make a new change name panel
     private void makeChangeNamePanel() {
         JLabel courseNameLabel = new JLabel("Course Name:");
         courseNameLabel.setBounds(10, 10, 100, 30);
@@ -160,6 +181,8 @@ public class SpecificCourse extends JFrame implements ActionListener {
         courseChangeNamePanel.add(courseNameLabel);
     }
 
+    // MODIFIES: this
+    // EFFECTS: make a new change credit panel
     private void makeChangeCreditPanel() {
         JLabel courseNameLabel = new JLabel("Course Credit:");
         courseNameLabel.setBounds(10, 10, 100, 30);
@@ -180,6 +203,8 @@ public class SpecificCourse extends JFrame implements ActionListener {
         courseChangeCreditPanel.add(courseNameLabel);
     }
 
+    // MODIFIES: this
+    // EFFECTS: make a new change status panel
     private void makeChangeStatusPanel() {
         JLabel courseNameLabel = new JLabel("Course Status:");
         courseNameLabel.setBounds(10, 10, 100, 30);
@@ -213,6 +238,8 @@ public class SpecificCourse extends JFrame implements ActionListener {
         courseChangeStatusPanel.add(courseNameLabel);
     }
 
+    // MODIFIES: this
+    // EFFECTS: make a new change grade panel
     private void makeChangeGradePanel() {
         JLabel courseNameLabel = new JLabel("Course Grade:");
         courseNameLabel.setBounds(10, 10, 100, 30);
@@ -251,11 +278,15 @@ public class SpecificCourse extends JFrame implements ActionListener {
         makeNewSpecificCourseWindow();
     }
 
+    // MODIFIES: this
+    // EFFECTS: close this page and open a new (this) page
     private void makeNewSpecificCourseWindow() {
         this.dispose();
         new SpecificCourse(course.getCourseName(), worklist);
     }
 
+    // MODIFIES: this
+    // EFFECTS: change the course name
     private void changeCourseName(String newName) {
         this.name = newName.toUpperCase();
         try {
@@ -265,6 +296,8 @@ public class SpecificCourse extends JFrame implements ActionListener {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: change the course credit
     private void changeCourseCredit(String credit) {
         this.credit = Integer.parseInt(credit);
         try {
@@ -274,6 +307,8 @@ public class SpecificCourse extends JFrame implements ActionListener {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: change the course status
     private void changeCourseStatus() {
         if (planningStatus.isSelected()) {
             course.setPlanning();
@@ -284,6 +319,8 @@ public class SpecificCourse extends JFrame implements ActionListener {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: change the course grade
     private void changeCourseGrade(String grade) {
         this.grade = Integer.parseInt(grade);;
         course.setGrade(this.grade);

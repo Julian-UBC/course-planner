@@ -11,6 +11,7 @@ public class InputNewWorklistName extends JFrame implements ActionListener {
     private JTextField newWorklistName;
     private JButton newWorklistNameButton;
 
+    // EFFECTS: initializes the page for input a new worklist name
     public InputNewWorklistName() {
         JLabel courseNameLabel = new JLabel("Worklist Name:");
         courseNameLabel.setBounds(30, 50, 100, 30);

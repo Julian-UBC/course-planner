@@ -15,6 +15,7 @@ public class WelcomePage extends JFrame implements ActionListener {
     private static final String OPEN_APP = "Open Course Planning";
     private JButton openAppButton;
 
+    // EFFECTS: initializes the welcome page
     public WelcomePage() {
         JPanel welcomePanel = makeWelcomePanel();
         JPanel openAppPanel = makeOpenAppButton();
@@ -27,6 +28,8 @@ public class WelcomePage extends JFrame implements ActionListener {
         this.setVisible(true);
     }
 
+    // MODIFIES: this
+    // EFFECTS: set the frame for this welcome page
     private void setWelcomePageFrame() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(null);
@@ -35,6 +38,7 @@ public class WelcomePage extends JFrame implements ActionListener {
         this.setTitle("Course Planning App");
     }
 
+    // EFFECTS: make a welcome panel and returns it
     private JPanel makeWelcomePanel() {
         ImageIcon welcomeImage = new ImageIcon("data/welcome.jpg");
 
@@ -48,6 +52,7 @@ public class WelcomePage extends JFrame implements ActionListener {
         return welcomePanel;
     }
 
+    // EFFECTS: make a panel with a button to open the app and returns the panel
     private JPanel makeOpenAppButton() {
         openAppButton = new JButton();
         openAppButton.addActionListener(this);
@@ -68,6 +73,7 @@ public class WelcomePage extends JFrame implements ActionListener {
         return openAppPanel;
     }
 
+    // EFFECTS: to play sound effects
     public void playSound(String soundName) {
         try {
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(soundName).getAbsoluteFile());

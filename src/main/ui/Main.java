@@ -9,6 +9,9 @@ public class Main {
 
     public static void main(String[] args) {
         new WelcomePage();
+//        new CoursePlanningApp();
+
+
 //        new CoursePlanningPage();
 //        CourseList worklist = null;
 //        try {
