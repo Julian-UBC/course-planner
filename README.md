@@ -36,3 +36,11 @@ Classes & methods that have robust design:
     - the constructor
     - removeRecentCourse
     - setCourseListName
+    
+Phase 4: Task 3
+---------------
+If I had more time to work on the project, I would definitely do more refactoring to improve my design. Although I have 
+already done some refactoring, I think there is still some more refactoring that I can do. I think some of my classes 
+still have low cohesion and/or high coupling. I have done a lot of refactoring in CoursePlanningPage class, but I feel 
+like there is still some more refactoring that I can do to improve my design. I probably need to extract some more
+classes to handle different responsibilities in CoursePlanningPage to improve cohesion and coupling.

@@ -288,6 +288,7 @@ public class CoursePlanningPage extends JFrame implements ActionListener {
             // do nothing
         }
     }
+
     // MODIFIES: this
     // EFFECTS: initializes Json
     private void initializeJson() {

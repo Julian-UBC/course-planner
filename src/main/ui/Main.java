@@ -1,10 +1,5 @@
 package ui;
 
-import exceptions.InvalidCredit;
-import exceptions.InvalidName;
-import model.Course;
-import model.CourseList;
-
 public class Main {
 
     public static void main(String[] args) {

@@ -81,7 +81,7 @@ public class SpecificCourse extends JFrame implements ActionListener {
     private void setSpecificCourseFrame() {
         this.setLayout(null);
         this.setSize(new Dimension(700, 400));
-//        this.setResizable(false);
+        this.setResizable(false);
         this.setTitle(this.name);
     }
 
